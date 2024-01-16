@@ -1,0 +1,60 @@
+스프링 시큐리티
+> 스프링 기반의 애플리케이션 보안(인증, 인가, 권한)을 담당하는 스프링 하위 프레임워크
+보안관련 옵션 제공
+CSRF 공격, 세션고정 공격 방어
+요청 헤더도 보안처리
+개발자가 보안관련 개발을 해야하는 부담을 줄여준다.
+인증
+ - 사용자의 신원을 입증하는 과정 (ex 로그인)
+인가
+ - 사이트의 특정부분에 접근할 수 있는지(ex 관리자페이지)
+
+스프링 시큐리티는 필터 기반으로 동작한다.
+
+UsernamePasswordAuthenticationFilter
+ > 아이디와 패스워드가 넘어오면 인증요청을 위임하는 인증 관리자 역할
+
+FilterSecurityInterceptor
+ > 권한 처리를 위임해 접근제어 결정을 하는 접근결정 관리자 역할
+
+ SecurityContextPersistenceFilter
+ SecurityContextRepository 에서 SecurityContext 를 가져오거나 저장하는 역할
+
+ LogoutFilter
+ 로그아웃 요청 처리
+
+ UsernamePasswordAuthenticationFilter
+ 폼 기반 로그인을 할 때 사용되는 필터
+ 인증에 성공하면 AuthenticationSuccessHandler 를 실행하고
+ 인증에 실패하면 AuthenticationFailureHandler 를 실행
+
+DefaultLoginPageGeneratingFilter
+ 사용자가 로그인 페이지를 지정하지 않았을 때 기본으로 설정하는 로그인 페이지 관련 필터
+
+BasicAuthenticationFilter
+ 요청 헤더에 있는 아이디, 패스워드를 파싱해서 인증요청 위임
+
+ RequestCacheAwareFilter
+ 로그인 성공 후, 관련 있는 캐시 요청이 있는지 확인하고 캐시요청 처리
+
+SecurityContextHolderAwareRequestFilter
+ HttpServletRequest를 감싼다. 필터 체인 상의 다음 필터들에서 부가정보 제공
+
+SessionManagementFilter
+인증된 사용자와 관련된 세션 관련 작업 진행
+세션 변조 방지 전략 설정, 유효하지 않은 세션 처리
+세션 생성 전략을 세우는 작업을 처리함
+
+아이디/패스워드 기반 폼로그인 시도 로그인 인증 절차
+1.사용자가 form 아이디/패스워드 입력하면 HTTPServletRequest
+에 ID / PWD 가 전달됨
+ AuthenticationFilter 유효성 검사
+2. 유효성 검사가 끝나면 실제 구현체인 Token을 만들어서 넘겨준다.
+3. 전달받은 인증용 객체 Token 을 AuthenticationManager에게 보낸다.
+4. Provider에게 보내준다.
+5. UserDetailsService로 보내주고
+6~7.UserDetailsService 사용자 아이디로 찾은 정보를 UserDetails 객체로 만들어서
+Provider에게 전달한다.
+8~10.SecurityContextHolder 에 Authentication 을 저장
+성공하면 AuthenticationSuccessHandler 실패하면 AuthenticationFailureHandler 를 실행
+
