@@ -6,6 +6,7 @@ import com.it.blog.dto.UpdateArticleRequest;
 import com.it.blog.repository.BlogRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class BlogService {
 
     //블로그 글 전체 조회
     public List<Article> findAll(){
-        return blogRepository.findAll();
+        return blogRepository.findAll(Sort.by("createdAt").descending());
     }
 
     //블로그 글 ID로 조회
@@ -46,6 +47,7 @@ public class BlogService {
 
         return article;
     }
+
 
 
 
