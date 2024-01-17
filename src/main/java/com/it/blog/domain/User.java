@@ -4,10 +4,14 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails {
     //UserDetails 상속받아 인증 객체로 사용
 
@@ -29,6 +34,14 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "created_at")
+    @CreatedDate  //엔티티가 생성될 때 생성 시간 저장
+    private LocalDateTime createdAt;
+
+
+    @Column(name = "updated_at")
+    @LastModifiedDate  //엔티티가 생성될 때 생성 시간 저장
+    private LocalDateTime updatedAt;
     @Builder
     public User(String email , String password, String auth){
         this.email = email;
