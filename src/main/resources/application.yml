@@ -20,5 +20,6 @@ spring:
         enabled : false
   thymeleaf:
     cache: false
-
-
+jwt:
+  issuer: zzzttt9@gmail.com
+  secretKey: study-springboot

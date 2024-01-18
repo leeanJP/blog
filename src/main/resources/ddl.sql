@@ -20,3 +20,17 @@ CREATE TABLE PUBLIC.USERS (
                               UPDATED_AT DATETIME NOT NULL,
                               CONSTRAINT USERS_PK PRIMARY KEY (ID)
 );
+
+-- PUBLIC.REFRESHTOKEN definition
+
+-- Drop table
+
+-- DROP TABLE PUBLIC.REFRESHTOKEN;
+
+CREATE TABLE PUBLIC.REFRESHTOKEN (
+                                     ID BIGINT NOT NULL AUTO_INCREMENT,
+                                     USER_ID BIGINT NOT NULL,
+                                     REFRESH_TOKEN CHARACTER VARYING(255) NOT NULL,
+                                     CONSTRAINT REFRESHTOKEN_PK PRIMARY KEY (ID)
+);
+CREATE UNIQUE INDEX PRIMARY_KEY_8 ON PUBLIC.REFRESHTOKEN (ID);
