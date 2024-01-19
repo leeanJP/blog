@@ -18,7 +18,7 @@ public class TokenApiController {
     // 새로운 엑세스 토큰을 만들어준다.
     private final TokenService tokenService;
 
-    @PostMapping
+    @PostMapping("/api/token")
     public ResponseEntity<CreateAccessTokenResponse> createNewAccessToken(@RequestBody CreateAccessTokenRequest request){
         String newAccessToken = tokenService.createNewAccessToken(request.getRefreshToken());
 
