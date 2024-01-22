@@ -13,6 +13,6 @@ public class RefreshTokenService {
 
     public RefreshToken findByRefreshToken(String refreshToken){
         return refreshTokenRepository.findByRefreshToken(refreshToken)
-                .orElseThrow(()->new IllegalArgumentException("RefreshTokenService : Unexpected token"));
+                .orElseThrow(()->new IllegalArgumentException("Unexpected token"));
     }
 }
