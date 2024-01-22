@@ -34,6 +34,9 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "nickname", unique = true)
+    private String nickname;
+
     @Column(name = "created_at")
     @CreatedDate  //엔티티가 생성될 때 생성 시간 저장
     private LocalDateTime createdAt;
@@ -43,11 +46,17 @@ public class User implements UserDetails {
     @LastModifiedDate  //엔티티가 생성될 때 생성 시간 저장
     private LocalDateTime updatedAt;
     @Builder
-    public User(String email , String password, String auth){
+    public User(String email , String password, String nickname){
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
     }
 
+    //사용자 이름 변경
+    public User update(String nickname){
+        this.nickname = nickname;
+        return this;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
